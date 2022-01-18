@@ -1,14 +1,14 @@
 import { Router } from "express";
 const router = new Router();
-import { validateSession } from "../index.js";
+import { validateSession } from "../app.js";
 
 //----------------services
 
-import { Container } from "../services/Container.js";
+import { Container } from "../controllers/Container.js";
 import { options } from "../db/options/sqlite3.js";
 const service = new Container(options, "products");
 
-//-----------------Middlewares
+//-----------------Middlewares > products.js
 function validateProduct(req, res, next) {
 	const { title, price, imageUrl } = req.body;
 	if (!title || !price || !imageUrl) return res.status(406).json({ error: "Invalid product" });

@@ -1,7 +1,8 @@
 import { MongoClient } from "mongodb";
-const uri = 'mongodb+srv://root:toor@cluster0.zntdz.mongodb.net/test';
+import 'dotenv/config'
 
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+console.log(process.env.MONGO_URI);
+const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 await client.connect();
 

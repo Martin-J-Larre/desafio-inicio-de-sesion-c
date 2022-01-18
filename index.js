@@ -1,5 +1,5 @@
-import server from './src/app.js';
-require("dotenv").config();
+import app from './src/app.js';
+import 'dotenv/config'
 
 const port = process.env.PORT || 8001
 

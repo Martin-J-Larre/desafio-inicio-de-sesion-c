@@ -7,12 +7,12 @@ import { connectDb } from "./db/options/mongoose.js";
 
 import { router as productsRouter } from "./routers/productsApi.js";
 import { router as chatRouter } from "./routers/chatApi.js";
-import { getFakerProducts } from "./services/fakerProducts.js";
+import { getFakerProducts } from "./controllers/fakerProducts.js";
 
 //-----------------Services
 
-import { Container } from "./services/Container.js";
-import { MessagesServices } from "./services/MessagesServices.js";
+import { Container } from "./controllers/Container.js";
+import { MessagesServices } from "./controllers/MessagesServices.js";
 import { options as sqlite3Options } from "./db/options/sqlite3.js";
 const sqliteServices = new Container(sqlite3Options, "products");
 import { messagesCollection } from "./db/options/mongoDB.js";
@@ -158,5 +158,6 @@ connectDb((err) => {
 	});
 
 });
+export default app;
 
 export { io, validateSession };
