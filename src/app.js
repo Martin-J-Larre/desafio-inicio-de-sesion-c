@@ -3,7 +3,7 @@ const app = express();
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import { passport } from "./passport.js";
-import { connectDb } from "./db/options/mongoose.js";
+// import { connectDb } from "./db/options/mongoose.js"; // Ahora en socket.js
 
 import { router as productsRouter } from "./routers/productsApi.js";
 import { router as chatRouter } from "./routers/chatApi.js";
@@ -121,15 +121,16 @@ app.use("/api/products", productsRouter);
 app.use("/api/chat", chatRouter);
 
 
-//!-----------------Server Listen
+//!-----------------Server Listen ahora en utils > socket.js
 
-import { Server as IOServer } from "socket.io";
-let io;
+// import { Server as IOServer } from "socket.io";
+// let io;
 
-connectDb((err) => {
-	if (err) return console.log("Error connecting to database: ", err);
-	console.log("DATABASE CONNECTED");
+// connectDb((err) => {
+// 	if (err) return console.log("Error connecting to database: ", err);
+// 	console.log("DATABASE CONNECTED");
 
+    //// ----> Esto esta en index.js del root
 	//// const PORT = process.env.PORT || 8081;
 
 	//// const server = app.listen(PORT, () => {
@@ -138,26 +139,27 @@ connectDb((err) => {
 	//// server.on("error", (err) => console.log(`Error in server: ${err}`));
 
 	//WEBSOCKETS
-	io = new IOServer(server);
+// 	io = new IOServer(server);
 
-	io.on("connection", async (socket) => {
-		console.log("User connected...");
+// 	io.on("connection", async (socket) => {
+// 		console.log("User connected...");
 
-		//Fetch fakerProducts
-		const fakerProducts = getFakerProducts();
+// 		//Fetch fakerProducts
+// 		const fakerProducts = getFakerProducts();
 
-		//Fetch products
-		const products = await sqliteServices.getElementsAll();
+// 		//Fetch products
+// 		const products = await sqliteServices.getElementsAll();
 
-		//Fetch messages
-		const messages = await mongoServices.getMessagesAll();
+// 		//Fetch messages
+// 		const messages = await mongoServices.getMessagesAll();
 
-		socket.emit("loadFakerProducts", fakerProducts);
-		socket.emit("loadProducts", products);
-		socket.emit("loadMessages", messages);
-	});
+// 		socket.emit("loadFakerProducts", fakerProducts);
+// 		socket.emit("loadProducts", products);
+// 		socket.emit("loadMessages", messages);
+// 	});
 
-});
-export default app;
+// });
+// export default app;
 
-export { io, validateSession };
+// export { io, validateSession };
+export {app, validateSession };
