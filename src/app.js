@@ -122,7 +122,7 @@ app.use("/api/chat", chatRouter);
 
 
 //!-----------------Server Listen ahora en utils > socket.js
-
+// ? Tengo que importar el sockets de utils > sockets.js
 // import { Server as IOServer } from "socket.io";
 // let io;
 
