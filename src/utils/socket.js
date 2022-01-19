@@ -7,11 +7,11 @@ const socketOn = () => {
         if (err) return console.log("Error connecting to database: ", err);
         console.log("DATABASE CONNECTED");
 
-        io = new IOServer(server);
+        io = new IOServer(server); //!este ya esta  any
 
         io.on("connection", async (socket) => {
             console.log("User connected...");
-    
+            //! Ver si afecta los fetch con respecto a las importaciones y demases
             //Fetch fakerProducts
             const fakerProducts = getFakerProducts();
     
@@ -28,5 +28,5 @@ const socketOn = () => {
     });    
 };
 
-export default socketOn;
+// export default socketOn; //! Cuál de las dos formas?
 export {io, socketOn}

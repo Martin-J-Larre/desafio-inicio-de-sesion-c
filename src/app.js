@@ -138,7 +138,7 @@ app.use("/api/chat", chatRouter);
 	//// });
 	//// server.on("error", (err) => console.log(`Error in server: ${err}`));
 
-	//WEBSOCKETS
+	//WEBSOCKETS //! Ver si esto esta bien, las importaciones too !!!
 // 	io = new IOServer(server);
 
 // 	io.on("connection", async (socket) => {
@@ -161,5 +161,5 @@ app.use("/api/chat", chatRouter);
 // });
 // export default app;
 
-// export { io, validateSession };
+// export { io, validateSession };//! Cuál de las dos formas es mas convenienete? io ?
 export {app, validateSession };
