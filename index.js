@@ -8,3 +8,4 @@ const server = app.listen(port, () => {
 });
 server.on("error", (err) => console.log(`Error in server: ${err}`));
 
+export { server }

@@ -3,8 +3,9 @@ const app = express();
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import { passport } from "./passport.js";
-// import { connectDb } from "./db/options/mongoose.js"; // Ahora en socket.js
+import { connectDb } from "./db/options/mongoose.js"; // Ahora en socket.js
 
+import 'dotenv/config'
 import { router as productsRouter } from "./routers/productsApi.js";
 import { router as chatRouter } from "./routers/chatApi.js";
 import { getFakerProducts } from "./controllers/fakerProducts.js";
@@ -16,6 +17,7 @@ import { MessagesServices } from "./controllers/MessagesServices.js";
 import { options as sqlite3Options } from "./db/options/sqlite3.js";
 const sqliteServices = new Container(sqlite3Options, "products");
 import { messagesCollection } from "./db/options/mongoDB.js";
+import { socketOn } from "./utils/socket.js";
 const mongoServices = new MessagesServices(messagesCollection);
 
 
@@ -37,8 +39,7 @@ app.use(express.static("./src/public"));
 app.use(
 	session({
 		store: MongoStore.create({
-			mongoUrl:
-			'mongodb://localhost:27017/admin',
+			mongoUrl:process.env.MONGO_URI,
 			mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
 		}),
 		secret: "This is my secret word.",
@@ -122,23 +123,24 @@ app.use("/api/chat", chatRouter);
 
 
 //!-----------------Server Listen ahora en utils > socket.js
+socketOn();
 // ? Tengo que importar el sockets de utils > sockets.js
 // import { Server as IOServer } from "socket.io";
 // let io;
 
-// connectDb((err) => {
+// connectDb((err) =>{
 // 	if (err) return console.log("Error connecting to database: ", err);
 // 	console.log("DATABASE CONNECTED");
 
-    //// ----> Esto esta en index.js del root
-	//// const PORT = process.env.PORT || 8081;
+//     //----> Esto esta en index.js del root
+// 	const PORT = process.env.PORT || 8081;
 
-	//// const server = app.listen(PORT, () => {
-	//// 	console.log(`Server on port ${server.address().port}`);
-	//// });
-	//// server.on("error", (err) => console.log(`Error in server: ${err}`));
+// 	const server = app.listen(PORT, () => {
+// 		console.log(`Server on port ${server.address().port}`);
+// 	});
+// 	server.on("error", (err) => console.log(`Error in server: ${err}`));
 
-	//WEBSOCKETS //! Ver si esto esta bien, las importaciones too !!!
+// 	// WEBSOCKETS //! Ver si esto esta b ien, las importaciones too !!!
 // 	io = new IOServer(server);
 
 // 	io.on("connection", async (socket) => {
