@@ -1,6 +1,6 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import { User } from "./db/options/mongoose.js";
+import { User } from "../db/options/mongoose.js";
 import bcrypt from "bcrypt";
 
 //HELPER FUNCTIONS

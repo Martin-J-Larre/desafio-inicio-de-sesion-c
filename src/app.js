@@ -2,8 +2,7 @@ import express from "express";
 const app = express();
 import session from "express-session";
 import MongoStore from "connect-mongo";
-import { passport } from "./passport.js";
-import { connectDb } from "./db/options/mongoose.js"; // Ahora en socket.js
+import { passport } from './middlewares/passport.js';
 
 import 'dotenv/config'
 import { router as productsRouter } from "./routers/productsApi.js";
@@ -17,7 +16,7 @@ import { MessagesServices } from "./controllers/MessagesServices.js";
 import { options as sqlite3Options } from "./db/options/sqlite3.js";
 const sqliteServices = new Container(sqlite3Options, "products");
 import { messagesCollection } from "./db/options/mongoDB.js";
-import { socketOn } from "./utils/socket.js";
+import { socketOn, io } from "./utils/socket.js";
 const mongoServices = new MessagesServices(messagesCollection);
 
 
@@ -122,46 +121,7 @@ app.use("/api/products", productsRouter);
 app.use("/api/chat", chatRouter);
 
 
-//!-----------------Server Listen ahora en utils > socket.js
+//-----------------Socket
 socketOn();
-// ? Tengo que importar el sockets de utils > sockets.js
-// import { Server as IOServer } from "socket.io";
-// let io;
 
-// connectDb((err) =>{
-// 	if (err) return console.log("Error connecting to database: ", err);
-// 	console.log("DATABASE CONNECTED");
-
-//     //----> Esto esta en index.js del root
-// 	const PORT = process.env.PORT || 8081;
-
-// 	const server = app.listen(PORT, () => {
-// 		console.log(`Server on port ${server.address().port}`);
-// 	});
-// 	server.on("error", (err) => console.log(`Error in server: ${err}`));
-
-// 	// WEBSOCKETS //! Ver si esto esta b ien, las importaciones too !!!
-// 	io = new IOServer(server);
-
-// 	io.on("connection", async (socket) => {
-// 		console.log("User connected...");
-
-// 		//Fetch fakerProducts
-// 		const fakerProducts = getFakerProducts();
-
-// 		//Fetch products
-// 		const products = await sqliteServices.getElementsAll();
-
-// 		//Fetch messages
-// 		const messages = await mongoServices.getMessagesAll();
-
-// 		socket.emit("loadFakerProducts", fakerProducts);
-// 		socket.emit("loadProducts", products);
-// 		socket.emit("loadMessages", messages);
-// 	});
-
-// });
-// export default app;
-
-// export { io, validateSession };//! Cuál de las dos formas es mas convenienete? io ?
-export {app, validateSession };
+export {app, validateSession, io };
