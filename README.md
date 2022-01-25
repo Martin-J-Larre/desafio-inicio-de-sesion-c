@@ -20,4 +20,7 @@
 ![alt text](https://raw.githubusercontent.com/Martin-J-Larre/desafio-login-formulario/main/img-video/sqlStudio.JPG)
 * npm run dev
 * Ir al localhost:8000
+## Preview
+![alt text](https://github.com/Martin-J-Larre/desafio-inicio-de-sesion-c/blob/main/assets/Login-Google-Chrome-2022-01-24-18-18-54.gif?raw=true)
+
 
